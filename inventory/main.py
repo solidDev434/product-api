@@ -35,8 +35,13 @@ app.add_middleware(
 
 
 @app.get("/products")
-async def root():
+async def get_all():
     return Product.find().all()
+
+
+@app.get("/products/{pk}")
+async def get(pk: str):
+    return Product.get(pk)
 
 
 @app.post("/products")
@@ -44,7 +49,7 @@ async def create(product: Product):
     return product.save()
 
 
-@app.delete("/products/{product_id}")
-async def create(product_id: str):
-    Product.delete(pk=product_id)
-    return {"message": f"Product {product_id} deleted successgfully"}
+@app.delete("/products/{pk}")
+async def create(pk: str):
+    Product.delete(pk)
+    return {"message": f"Product {pk} deleted successgfully"}
